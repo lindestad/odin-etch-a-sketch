@@ -1,8 +1,10 @@
 const PIXEL_WIDTH = 20;
 const PIXEL_HEIGHT = 20;
 const GAP = 1;
+const SKETCH_WIDTH = 960;
 
 const sketchContainer = document.getElementById("sketch-container");
+sketchContainer.style.width = SKETCH_WIDTH + 'px';
 
 function createPixel() {
   const pixel = document.createElement("div");
@@ -41,14 +43,17 @@ function createPixel() {
   return pixel;
 }
 
-let pixelsWide = 16;
-let pixelsTall = 16;
-
-sketchContainer.style.width =
-  pixelsWide * PIXEL_WIDTH + (pixelsWide - 1) * GAP + "px";
-
-for (let y = 0; y < pixelsWide; y++) {
-  for (let x = 0; x < pixelsWide; x++) {
-    sketchContainer.appendChild(createPixel());
+function initializeSketchScreen(container, nPixelsPerRow) {
+  for (let y = 0; y < nPixelsPerRow; y++) {
+    let pixelRow = document.createElement("div");
+    pixelRow.style.display = "flex";
+    pixelRow.style.gap = GAP;
+    for (let x = 0; x < nPixelsPerRow; x++) {
+      pixelRow.appendChild(createPixel());
+    }
+    container.appendChild(pixelRow);
   }
+  return;
 }
+
+initializeSketchScreen(sketchContainer, 16);
