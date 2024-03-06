@@ -1,16 +1,16 @@
 const PIXEL_WIDTH = 20;
 const PIXEL_HEIGHT = 20;
-const GAP = 1;
+const GAP = 2;
 const SKETCH_WIDTH = 600;
 
 const sketchContainer = document.getElementById("sketch-container");
 sketchContainer.style.width = SKETCH_WIDTH + 'px';
 sketchContainer.style.height = SKETCH_WIDTH + 'px';
 
-function createPixel() {
+function createPixel(width=20) {
   const pixel = document.createElement("div");
-  pixel.style.width = PIXEL_WIDTH + "px";
-  pixel.style.height = PIXEL_HEIGHT + "px";
+  pixel.style.width = width + "px";
+  pixel.style.height = width + "px";
   pixel.style.backgroundColor = "red";
   pixel.style.margin = GAP + 'px';
   pixel.className = "pixel";
@@ -45,22 +45,22 @@ function createPixel() {
   return pixel;
 }
 
+function calculatePixelSize(containerWidth, nPixelsPerRow, gap=1) {
+    const pixelWidth = Math.floor(containerWidth/nPixelsPerRow)-(gap*2);
+    return pixelWidth;
+}
+
 function initializeSketchScreen(container, nPixelsPerRow) {
   for (let y = 0; y < nPixelsPerRow; y++) {
     let pixelRow = document.createElement("div");
     pixelRow.className = 'pixel-row'
     pixelRow.style.width = SKETCH_WIDTH + 'px';
     for (let x = 0; x < nPixelsPerRow; x++) {
-      pixelRow.appendChild(createPixel());
+      pixelRow.appendChild(createPixel(calculatePixelSize(SKETCH_WIDTH, nPixelsPerRow, GAP)));
     }
     container.appendChild(pixelRow);
   }
   return;
-}
-
-function calculatePixelSize(containerWidth, gap) {
-
-    return;
 }
 
 initializeSketchScreen(sketchContainer, 16);
