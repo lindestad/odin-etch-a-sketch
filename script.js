@@ -15,12 +15,28 @@ function createPixel() {
   });
   pixel.hoverCount = 0;
   pixel.addEventListener("mouseout", () => {
-    // if (pixel.hoverCount < 10) {
-    //     hoverCount++;
-    // }
-    pixel.style.backgroundColor = "orange";
-    // hsl(hue, saturation, lightness)
-
+    // pixel.style.backgroundColor = "orange";
+    if (pixel.hoverCount < 10) {
+      if (pixel.hoverCount === 0) {
+        // set RGB value
+        let randomRGB = Math.floor(Math.random() * 255);
+        // hsl(hue, saturation, lightness)
+        pixel.style.backgroundColor = "hsl(" + randomRGB + ", 100%, 50%)";
+        pixel.RGBvalue = randomRGB;
+      } else {
+        // use stored RGB value, darken pixel
+        let hslString =
+          "hsl(" +
+          pixel.RGBvalue +
+          ", 100%, " +
+          (50 - pixel.hoverCount * 5) +
+          "%)";
+        pixel.style.backgroundColor = hslString;
+      }
+      pixel.hoverCount++;
+    } else {
+      pixel.style.backgroundColor = "black";
+    }
   });
   return pixel;
 }
