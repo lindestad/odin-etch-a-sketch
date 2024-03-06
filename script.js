@@ -12,15 +12,14 @@ function createPixel(width = 20) {
   const pixel = document.createElement("div");
   pixel.style.width = width + "px";
   pixel.style.height = width + "px";
-  pixel.style.backgroundColor = "red";
+  pixel.style.backgroundColor = "lightgray";
   pixel.style.margin = GAP + "px";
   pixel.className = "pixel";
   pixel.addEventListener("mouseover", () => {
-    pixel.style.backgroundColor = "blue";
+    pixel.style.backgroundColor = "black";
   });
   pixel.hoverCount = 0;
   pixel.addEventListener("mouseout", () => {
-    // pixel.style.backgroundColor = "orange";
     if (pixel.hoverCount < 10) {
       if (pixel.hoverCount === 0) {
         // set RGB value
