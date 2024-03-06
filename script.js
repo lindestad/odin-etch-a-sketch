@@ -14,10 +14,10 @@ function createPixel() {
     pixel.style.backgroundColor = "blue";
   });
   pixel.hoverCount = 0;
-  pixel.addEventListener("mouseout", () => {
-    // if (pixel.hoverCount < 10) {
-    //     hoverCount++;
-    // }
+  pixel.addEventListener("mouseout",() => {
+    if (pixel.hoverCount < 10) {
+        pixel.hoverCount++;
+    }
     pixel.style.backgroundColor = "orange";
     // hsl(hue, saturation, lightness)
 
