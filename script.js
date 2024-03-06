@@ -4,15 +4,15 @@ const GAP = 2;
 const SKETCH_WIDTH = 600;
 
 const sketchContainer = document.getElementById("sketch-container");
-sketchContainer.style.width = SKETCH_WIDTH + 'px';
-sketchContainer.style.height = SKETCH_WIDTH + 'px';
+sketchContainer.style.width = SKETCH_WIDTH + "px";
+sketchContainer.style.height = SKETCH_WIDTH + "px";
 
-function createPixel(width=20) {
+function createPixel(width = 20) {
   const pixel = document.createElement("div");
   pixel.style.width = width + "px";
   pixel.style.height = width + "px";
   pixel.style.backgroundColor = "red";
-  pixel.style.margin = GAP + 'px';
+  pixel.style.margin = GAP + "px";
   pixel.className = "pixel";
   pixel.addEventListener("mouseover", () => {
     pixel.style.backgroundColor = "blue";
@@ -45,22 +45,37 @@ function createPixel(width=20) {
   return pixel;
 }
 
-function calculatePixelSize(containerWidth, nPixelsPerRow, gap=1) {
-    const pixelWidth = Math.floor(containerWidth/nPixelsPerRow)-(gap*2);
-    return pixelWidth;
+function calculatePixelSize(containerWidth, nPixelsPerRow, gap = 1) {
+  const pixelWidth = Math.floor(containerWidth / nPixelsPerRow) - gap * 2;
+  return pixelWidth;
 }
 
 function initializeSketchScreen(container, nPixelsPerRow) {
+  container.replaceChildren();
   for (let y = 0; y < nPixelsPerRow; y++) {
     let pixelRow = document.createElement("div");
-    pixelRow.className = 'pixel-row'
-    pixelRow.style.width = SKETCH_WIDTH + 'px';
+    pixelRow.className = "pixel-row";
+    pixelRow.style.width = SKETCH_WIDTH + "px";
     for (let x = 0; x < nPixelsPerRow; x++) {
-      pixelRow.appendChild(createPixel(calculatePixelSize(SKETCH_WIDTH, nPixelsPerRow, GAP)));
+      pixelRow.appendChild(
+        createPixel(calculatePixelSize(SKETCH_WIDTH, nPixelsPerRow, GAP))
+      );
     }
     container.appendChild(pixelRow);
   }
   return;
 }
 
-initializeSketchScreen(sketchContainer, 16);
+initializeSketchScreen(sketchContainer, 22);
+
+const slider = document.getElementById("myRange");
+slider.oninput = function () {
+  initializeSketchScreen(sketchContainer, this.value);
+};
+var output = document.getElementById("demo");
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function () {
+  output.innerHTML = this.value;
+};
