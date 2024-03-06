@@ -2,6 +2,7 @@ const PIXEL_WIDTH = 20;
 const PIXEL_HEIGHT = 20;
 const GAP = 2;
 const SKETCH_WIDTH = 600;
+const DEFAULT_PIXEL_COUNT = 22;
 
 const sketchContainer = document.getElementById("sketch-container");
 sketchContainer.style.width = SKETCH_WIDTH + "px";
@@ -66,9 +67,17 @@ function initializeSketchScreen(container, nPixelsPerRow) {
   return;
 }
 
-initializeSketchScreen(sketchContainer, 22);
+initializeSketchScreen(sketchContainer, DEFAULT_PIXEL_COUNT);
+
+let sliderValue = DEFAULT_PIXEL_COUNT;
 
 const slider = document.getElementById("myRange");
 slider.oninput = function () {
-  initializeSketchScreen(sketchContainer, this.value);
+  sliderValue = this.value;
+  initializeSketchScreen(sketchContainer, sliderValue);
 };
+
+const resetButton = document.getElementById("reset-button");
+resetButton.addEventListener("click", () => {
+  initializeSketchScreen(sketchContainer, sliderValue);
+});
