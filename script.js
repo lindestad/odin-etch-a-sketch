@@ -1,16 +1,18 @@
 const PIXEL_WIDTH = 20;
 const PIXEL_HEIGHT = 20;
 const GAP = 1;
-const SKETCH_WIDTH = 960;
+const SKETCH_WIDTH = 600;
 
 const sketchContainer = document.getElementById("sketch-container");
 sketchContainer.style.width = SKETCH_WIDTH + 'px';
+sketchContainer.style.height = SKETCH_WIDTH + 'px';
 
 function createPixel() {
   const pixel = document.createElement("div");
   pixel.style.width = PIXEL_WIDTH + "px";
   pixel.style.height = PIXEL_HEIGHT + "px";
   pixel.style.backgroundColor = "red";
+  pixel.style.margin = GAP + 'px';
   pixel.className = "pixel";
   pixel.addEventListener("mouseover", () => {
     pixel.style.backgroundColor = "blue";
@@ -46,14 +48,19 @@ function createPixel() {
 function initializeSketchScreen(container, nPixelsPerRow) {
   for (let y = 0; y < nPixelsPerRow; y++) {
     let pixelRow = document.createElement("div");
-    pixelRow.style.display = "flex";
-    pixelRow.style.gap = GAP;
+    pixelRow.className = 'pixel-row'
+    pixelRow.style.width = SKETCH_WIDTH + 'px';
     for (let x = 0; x < nPixelsPerRow; x++) {
       pixelRow.appendChild(createPixel());
     }
     container.appendChild(pixelRow);
   }
   return;
+}
+
+function calculatePixelSize(containerWidth, gap) {
+
+    return;
 }
 
 initializeSketchScreen(sketchContainer, 16);
